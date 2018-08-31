@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="cont">
+		<input type="button" value="查询" id="btn_query">
+		<ul id="list">
+			
+		</ul>
+	</form>
+	<script>
+		var btn_query = document.getElementById("btn_query");
+		var list = document.getElementById("list");
+		btn_query.onclick = function(){
+			var htmlCont = "";
+			var scrip = "";
+			scrip = document.createElement("script");
+			var cont = document.getElementById("cont").value;
+			scrip.src = "//suggest.taobao.com/sug?q=" + cont + "&callback=foo";
+			var head = document.getElementsByTagName("head")[0];
+			head.appendChild(scrip);
+			//回调函数
+			window["foo"] = function(data){
+				var arr = data.result;
+				for(i in arr){
+					var text = arr[i][0];
+					htmlCont += "<li>" + text + "</li>";
+				}
+				list.innerHTML = htmlCont;
+			}
+		}
+	</script>
+</body>
+</html>

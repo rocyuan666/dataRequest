@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax_GET请求</title>
+	<style>
+		#status{margin-left:10px;}
+	</style>
+</head>
+<body>
+	<h1>ajax_GET请求</h1>
+	<h2>用户注册</h2>
+	<form action="">
+		<input type="text" id="username">
+		<input type="button" value="检测用户名" id="btn-test"><span id="status"></span>
+	</form>
+	<script>
+		var btn_test = document.getElementById("btn-test");
+		btn_test.onclick = function(){
+			var username = document.getElementById("username").value;
+			var status = document.getElementById("status");
+			//1创建ajax对象
+			var xhr = null;
+			if(window.XMLHttpRequest){
+				xhr = new XMLHttpRequest();
+			}else{
+				//IE6浏览器
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			//2准备发送
+			xhr.open("get","server/data_get.php?username=" + username,true);
+			//3发送
+			xhr.send();
+			//4接收
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var resule = xhr.responseText;
+					console.log(resule);
+					status.innerText = resule;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

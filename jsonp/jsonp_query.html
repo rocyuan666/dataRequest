@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp</title>
+</head>
+<body>
+	<form action="">
+		<input type="text" id="cont">
+		<input type="button" value="查询" id="btn_query">
+		<ul id="list">
+			
+		</ul>
+	</form>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script>
+		$("#btn_query").click(function(){
+			var htmlCont = "";
+			var key = $("#cont").val();
+			$.ajax({
+				url:"//suggest.taobao.com/sug",
+				data:{q:key},
+				dataType:"jsonp",
+				// jsonp:"cb",//回调函数名key
+				// jsonpCallback:"haha"//返回的函数名value基本无用
+				success:function(data){
+					var arr = data.result;
+					for(i in arr){
+						var text = arr[i][0];
+						htmlCont += "<li>" + text + "</li>";
+					}
+					list.innerHTML = htmlCont;
+				}
+			})
+		})
+	</script>
+</body>
+</html>

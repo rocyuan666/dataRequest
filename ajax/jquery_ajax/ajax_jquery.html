@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax_jquery请求</title>
+	<style>
+		#status{margin-left:10px;}
+	</style>
+</head>
+<body>
+	<h1>ajax_jquery请求</h1>
+	<h2>用户注册</h2>
+	<form action="">
+		<input type="text" id="username">
+		<input type="button" value="检测用户名" id="btn-test"><span id="status"></span>
+	</form>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script>
+		$("#btn-test").click(function(){
+			var username = $("#username").val();
+			//$ajax
+			$.ajax({
+				url:"../server/data_get.php",
+				type:"get",//默认get
+				data:{
+					username:username
+				},
+				async:true,//默认true
+				datatype:"text",
+				success:function(result){
+					$("#status").text(result);
+				}
+			});
+
+			//$get
+			/*$.get("../server/data_get.php?username=username",function(result){
+				$("#status").text(result);
+			})*/
+
+			// $post
+			/*$.post("../server/data_post.php",{username:username},function(result){
+				$("#status").text(result);
+			})*/
+		})
+	</script>
+</body>
+</html>
